@@ -36,6 +36,7 @@ public class Application {
 
         List<Product> products = new ArrayList<>();
         Product product = new Product();
+
         int id;
         String name;
         String description;
@@ -52,16 +53,17 @@ public class Application {
                 break;
             case 3:
                 System.out.println("--- Adicionar produto ---");
-                System.out.print("Nome do produto: ");
+                System.out.print("Product's name: ");
                 name = sc.nextLine();
-                System.out.println("Descrição: ");
+                //Se o nome do produto já existir na lista, enviar mensagem "Product name already exists".
+                System.out.print("Description (The description must contain at least 10 characters): ");
                 description = sc.nextLine();
-                System.out.println("Valor: ");
-                value = Double.parseDouble(sc.nextLine());
+                System.out.print("Value: ");
+                value = Double.parseDouble(sc.nextLine()); //Double.parseDouble tudo que for digitado transforma em double
                 Product p = new Product(productHandler.getMaxId(), name, description, value);
                 productHandler.create(p);
                 productHandler.addMaxId();
-                System.out.println("Produto criado.");
+                System.out.println("--- Product created successfully ---");
                 System.out.println(p.toString());
                 break;
         }

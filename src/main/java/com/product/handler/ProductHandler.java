@@ -29,7 +29,6 @@ public class ProductHandler {
     }
 
     public Product create(Product product) {
-        System.out.println("3- Criando produto\n");
         products.add(product);
         return product;
     }

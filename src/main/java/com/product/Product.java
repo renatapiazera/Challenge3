@@ -47,10 +47,12 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product\n{"
+        return "\n\nProduct\n{"
                 + "\n  \"id\": " + id
                 + ",\n  \"name\": \"" + name
-                + "\",\n  \"value\": " + value
-                + ",\n  \"description\": \"" + description + "\"\n}\n";
+                + "\",\n  \"description\": \"" + description + "\""
+                + ",\n  \"value\": " + value + "\n}\n";
+
+
     }
 }
