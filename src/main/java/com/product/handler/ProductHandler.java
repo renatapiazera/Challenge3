@@ -15,8 +15,15 @@ public class ProductHandler {
         }
     }
 
-    public void findById(int id) {
-        System.out.println("2- Buscando produto\n");
+    public void findById(int id, List<Product> products) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                System.out.println("Product found:");
+                System.out.println(product.toString());
+                return;
+            }
+        }
+        System.out.println("Product not found.");
     }
 
     public Product create(Product product, List<Product> products) {

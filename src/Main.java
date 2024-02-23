@@ -34,6 +34,12 @@ public class Main {
                     System.out.println("--- Registered products ---");
                     productHandler.listAll(products);
                     break;
+                case 2:
+                    System.out.println("--- Search product by ID ---");
+                    System.out.print("Enter ID: ");
+                    int productIdToFind = Integer.parseInt(sc.nextLine());
+                    productHandler.findById(productIdToFind, products);
+                    break;
                 case 3:
                     System.out.println("--- Adicionar produto ---");
                     System.out.print("Nome do produto: ");
