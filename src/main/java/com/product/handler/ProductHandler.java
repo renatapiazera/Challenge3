@@ -10,7 +10,6 @@ public class ProductHandler {
     }
 
     public void listAll(List<Product> products) {
-        System.out.println("1- Listando produtos\n");
         for (Product p: products) {
             System.out.println(p.toString());
         }

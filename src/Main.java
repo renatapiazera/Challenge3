@@ -31,6 +31,7 @@ public class Main {
                     System.exit(0);
                     break;
                 case 1:
+                    System.out.println("--- Registered products ---");
                     productHandler.listAll(products);
                     break;
                 case 3:
