@@ -48,6 +48,16 @@ public class Main {
                     System.out.println("Produto criado.");
                     System.out.println(p.toString());
                     break;
+                case 4:
+                    System.out.println("--- Update product ---");
+                    System.out.print("Product ID to be updated: ");
+                    int productIdToUpdate = Integer.parseInt(sc.nextLine());
+                    System.out.print("Enter the attribute to be updated (name/description/value): ");
+                    String attributeToUpdate = sc.nextLine();
+                    System.out.print("New value: ");
+                    String newValue = sc.nextLine();
+                    productHandler.update(productIdToUpdate, attributeToUpdate, newValue, products);
+                    break;
             }
         }
     }

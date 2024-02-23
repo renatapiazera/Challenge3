@@ -25,8 +25,33 @@ public class ProductHandler {
         return product;
     }
 
-    public void update(int id, String attribute, String value) {
-        System.out.println("4- Atualizando produto\n");
+    public void update(int id, String attribute, String value, List<Product> products) {for (Product product : products) {
+        if (product.getId() == id) {
+            switch (attribute.toLowerCase()) {
+                case "name":
+                    product.setName(value);
+                    break;
+                case "description":
+                    product.setDescription(value);
+                    break;
+                case "value":
+                    try {
+                        double doubleValue = Double.parseDouble(value);
+                        product.setValue(doubleValue);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Value is not a valid number.");
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid attribute.");
+                    return;
+            }
+            System.out.println("Product updated successfully.");
+            System.out.println(product.toString());
+            return;
+        }
+    }
+        System.out.println("Product not found.");
     }
 
     public void delete(int id) {
