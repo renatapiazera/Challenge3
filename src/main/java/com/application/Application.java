@@ -1,6 +1,8 @@
 package main.java.com.application; //local onde está este código
 
 import main.java.com.product.Product;
+import main.java.com.product.handler.ProductHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,8 +32,15 @@ public class Application {
     }
 
     public static void menu(int option) {
+        ProductHandler productHandler = new ProductHandler();
+
         List<Product> products = new ArrayList<>();
         Product product = new Product();
+        int id;
+        String name;
+        String description;
+        double value;
+
 
         switch(option) {
 
@@ -41,7 +50,20 @@ public class Application {
                 break;
             case 1:
                 break;
-
+            case 3:
+                System.out.println("--- Adicionar produto ---");
+                System.out.print("Nome do produto: ");
+                name = sc.nextLine();
+                System.out.println("Descrição: ");
+                description = sc.nextLine();
+                System.out.println("Valor: ");
+                value = Double.parseDouble(sc.nextLine());
+                Product p = new Product(productHandler.getMaxId(), name, description, value);
+                productHandler.create(p);
+                productHandler.addMaxId();
+                System.out.println("Produto criado.");
+                System.out.println(p.toString());
+                break;
         }
     }
 }
