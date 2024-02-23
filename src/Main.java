@@ -64,6 +64,12 @@ public class Main {
                     String newValue = sc.nextLine();
                     productHandler.update(productIdToUpdate, attributeToUpdate, newValue, products);
                     break;
+                case 5:
+                    System.out.println("--- Delete product ---");
+                    System.out.print("Product ID to be deleted: ");
+                    int idDelete = Integer.parseInt(sc.nextLine());
+                    productHandler.delete(idDelete, products);
+                    break;
             }
         }
     }

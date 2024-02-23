@@ -61,7 +61,21 @@ public class ProductHandler {
         System.out.println("Product not found.");
     }
 
-    public void delete(int id) {
-        System.out.println("5- Deletando produto\n");
+    public void delete(int id, List<Product> products) {
+        int index = -1;
+
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == id) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1) {
+            products.remove(index);
+            System.out.println("Product deleted successfully.");
+        } else {
+            System.out.println("Product not found.");
+        }
     }
 }
