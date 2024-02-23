@@ -9,26 +9,18 @@ public class ProductHandler {
     public ProductHandler() {
     }
 
-    private List<Product> products = new ArrayList<Product>();
-    private int maxId = 1;
-
-    public int getMaxId() {
-        return maxId;
-    }
-
-    public void addMaxId() {
-        maxId++;
-    }
-
-    public void list() {
+    public void listAll(List<Product> products) {
         System.out.println("1- Listando produtos\n");
+        for (Product p: products) {
+            System.out.println(p.toString());
+        }
     }
 
     public void findById(int id) {
         System.out.println("2- Buscando produto\n");
     }
 
-    public Product create(Product product) {
+    public Product create(Product product, List<Product> products) {
         System.out.println("3- Criando produto\n");
         products.add(product);
         return product;
