@@ -6,25 +6,76 @@ import java.util.List;
 
 public class ProductHandler {
 
-    List<Product> products = new ArrayList<Product>();
-
-    public static void list() {
-        System.out.println("1- Listando produtos\n");
+    public ProductHandler() {
     }
 
-    public static void findById(int id) {
-        System.out.println("2- Buscando produto\n");
+    public void listAll(List<Product> products) {
+        for (Product p: products) {
+            System.out.println(p.toString());
+        }
     }
 
-    public static void create(String name, String description, double value) {
+    public void findById(int id, List<Product> products) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                System.out.println("Product found:");
+                System.out.println(product.toString());
+                return;
+            }
+        }
+        System.out.println("Product not found.");
+    }
+
+    public Product create(Product product, List<Product> products) {
         System.out.println("3- Criando produto\n");
+        products.add(product);
+        return product;
     }
 
-    public static void update(int id, String attribute, String value) {
-        System.out.println("4- Atualizando produto\n");
+    public void update(int id, String attribute, String value, List<Product> products) {for (Product product : products) {
+        if (product.getId() == id) {
+            switch (attribute.toLowerCase()) {
+                case "name":
+                    product.setName(value);
+                    break;
+                case "description":
+                    product.setDescription(value);
+                    break;
+                case "value":
+                    try {
+                        double doubleValue = Double.parseDouble(value);
+                        product.setValue(doubleValue);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Value is not a valid number.");
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid attribute.");
+                    return;
+            }
+            System.out.println("Product updated successfully.");
+            System.out.println(product.toString());
+            return;
+        }
+    }
+        System.out.println("Product not found.");
     }
 
-    public static void delete(int id) {
-        System.out.println("5- Deletando produto\n");
+    public void delete(int id, List<Product> products) {
+        int index = -1;
+
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == id) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1) {
+            products.remove(index);
+            System.out.println("Product deleted successfully.");
+        } else {
+            System.out.println("Product not found.");
+        }
     }
 }
