@@ -1,3 +1,4 @@
+import main.java.com.http.HTTP;
 import main.java.com.product.Product;
 import main.java.com.product.handler.ProductHandler;
 
@@ -12,8 +13,7 @@ public class Main {
         ProductHandler productHandler = new ProductHandler();
 
         List<Product> products = new ArrayList<>();
-        Product product = new Product();
-        int id;
+        //Product product = new Product();
         String name;
         String description;
         double value;
@@ -32,7 +32,8 @@ public class Main {
                     break;
                 case 1:
                     System.out.println("--- Registered products ---");
-                    productHandler.listAll(products);
+                    HTTP listMessage = productHandler.listAll(products);
+                    System.out.println(listMessage);
                     break;
                 case 2:
                     System.out.println("--- Search product by ID ---");
@@ -41,19 +42,53 @@ public class Main {
                     productHandler.findById(productIdToFind, products);
                     break;
                 case 3:
-                    System.out.println("--- Adicionar produto ---");
-                    System.out.print("Nome do produto: ");
+                    System.out.println("--- Add product ---");
+                    System.out.print("Product's name: ");
                     name = sc.nextLine();
-                    System.out.println("Descrição: ");
-                    description = sc.nextLine();
-                    System.out.println("Valor: ");
-                    value = Double.parseDouble(sc.nextLine());
-                    Product p = new Product(maxId, name, description, value);
-                    productHandler.create(p, products);
-                    maxId++;
-                    System.out.println("Produto criado.");
-                    System.out.println(p.toString());
+
+                    // Verifica se o nome tem pelo menos 3 caracteres
+                    if (name.length() < 3) {
+                        System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
+                        System.out.println("Error: Enter a valid name.");
+                        continue; // Volta para o início do loop para mostrar o menu novamente
+                    }
+
+                    try {
+                        System.out.print("Description (The description must contain at least 10 characters): ");
+                        description = sc.nextLine();
+
+                        // Verifica se a descrição tem pelo menos 10 caracteres
+                        if (description.length() < 10) {
+                            System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
+                            System.out.println("Error: Enter a valid description with at least 10 characters.");
+                            continue; // Volta para o início do loop para mostrar o menu novamente
+                        }
+
+                        // Verifica se o valor é um número positivo
+                        System.out.print("Value: ");
+                        value = Double.parseDouble(sc.nextLine());
+                        if (value <= 0) {
+                            System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
+                            System.out.println("Error: Enter a valid value.");
+                            continue; // Volta para o início do loop para mostrar o menu novamente
+                        }
+
+                        Product p = new Product(maxId, name, description, value);
+                        productHandler.create(p, products);
+                        maxId++;
+                    } catch (ProductHandler.DuplicateProductNameException e) {
+                        System.out.println(new HTTP(403, "Forbidden", e.getMessage()));
+                        System.out.println("Error: Product with the same name already exists.");
+                        continue; // Volta para o início do loop para mostrar o menu novamente
+                    } catch (NumberFormatException e) {
+                        // Captura a exceção se o valor não for um número
+                        System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
+                        System.out.println("Error: Enter a valid value.");
+                        continue; // Volta para o início do loop para mostrar o menu novamente
+                    }
                     break;
+
+
                 case 4:
                     System.out.println("--- Update product ---");
                     System.out.print("Product ID to be updated: ");
