@@ -1,7 +1,7 @@
 package main.java.com.product.handler;
 
+import main.java.com.http.HTTP;
 import main.java.com.product.Product;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductHandler {
@@ -9,27 +9,53 @@ public class ProductHandler {
     public ProductHandler() {
     }
 
-    public void listAll(List<Product> products) {
-        for (Product p: products) {
-            System.out.println(p.toString());
+    public HTTP listAll(List<Product> products) {
+        if (products.isEmpty()) {
+            return new HTTP(404, "Not Found", "The requested resource was not found.");
+        } else {
+            System.out.println(new HTTP(200, "OK", "Request successful."));
+            for (Product p : products) {
+                System.out.println(p.toString());
+            }
         }
+        return null;
     }
 
     public void findById(int id, List<Product> products) {
-        for (Product product : products) {
-            if (product.getId() == id) {
-                System.out.println("Product found:");
-                System.out.println(product.toString());
-                return;
+        if (products.isEmpty()) {
+            // Lista vazia, retorna erro 404 em formato JSON
+            System.out.println(new HTTP(404, "Not Found", "The requested resource was not found."));
+            return;
+        } else {
+            for (Product product : products) {
+                if (product.getId() == id) {
+                    // Produto encontrado, imprime as informações
+                    System.out.println(new HTTP(200, "OK", "Request successful."));
+                    System.out.println("Product found:");
+                    System.out.println(product.toString());
+                    return;
+                }
             }
         }
-        System.out.println("Product not found.");
+        // Produto não encontrado, retorna erro 400 em formato JSON
+        System.out.println(new HTTP (400, "Invalid request", "Invalid request."));
     }
 
-    public Product create(Product product, List<Product> products) {
-        System.out.println("3- Criando produto\n");
+    public Product create(Product product, List<Product> products) throws DuplicateProductNameException {
+        for (Product p : products) {
+            if (p.getName().equalsIgnoreCase(product.getName())) {
+                throw new DuplicateProductNameException("The insertion criteria must be adhered to.");
+            }
+        }
         products.add(product);
+        System.out.println(new HTTP(200, "OK", "Request successful."));
         return product;
+    }
+    // Exceção personalizada para lidar com nomes de produtos duplicados
+    public static class DuplicateProductNameException extends Exception {
+        public DuplicateProductNameException(String message) {
+            super(message);
+        }
     }
 
     public void update(int id, String attribute, String value, List<Product> products) {for (Product product : products) {
@@ -70,7 +96,6 @@ public class ProductHandler {
                 break;
             }
         }
-
         if (index != -1) {
             products.remove(index);
             System.out.println("Product deleted successfully.");

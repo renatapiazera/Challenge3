@@ -7,9 +7,6 @@ public class Product {
     private String description;
     private double value;
 
-    public Product() {
-    }
-
     public Product(int id, String name, String description, double value) {
         this.id = id;
         this.name = name;
@@ -21,7 +18,7 @@ public class Product {
         return id;
     }
 
-   public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -29,17 +26,10 @@ public class Product {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public double getValue() {
-        return value;
-    }
 
     public void setValue(double value) {
         this.value = value;
@@ -47,7 +37,6 @@ public class Product {
 
     @Override
     public String toString() {
-
         return "{"
                 + "\n  \"id\": " + id
                 + ",\n  \"name\": \"" + name
