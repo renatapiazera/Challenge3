@@ -59,6 +59,11 @@ public class ProductHandler {
         for (Product p : products) {
             if (p.getName().equalsIgnoreCase(product.getName())) {
                 throw new DuplicateName("The insertion criteria must be adhered to.");
+    /*
+    O throw é utilizado para explicitamente lançar uma exceção. Quando é encontrado uma condição
+    de erro ou situação excepcional no código, é possível usar throw para lançar uma instância
+    de uma classe de exceção.
+    */
             }
         }
         products.add(product);
@@ -89,9 +94,9 @@ public class ProductHandler {
                     product.setDescription(value);
                     break;
                 case "value":
-                    try {
-                        double doubleValue = Double.parseDouble(value);
-                        product.setValue(doubleValue);
+                    try {                                                //O bloco try-catch é usado para manipulação de exceções.
+                        double doubleValue = Double.parseDouble(value);  //Ele permite que você lide com possíveis erros durante
+                        product.setValue(doubleValue);                   //a execução de um bloco de código.
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Value is not a valid number.");
                     }
