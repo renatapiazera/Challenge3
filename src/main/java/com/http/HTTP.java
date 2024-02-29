@@ -11,7 +11,8 @@ public class HTTP {
         this.status = status;
         this.message = message;
     }
-
+    // Métodos getters para obter a mensagem da resposta HTTP.
+    // Métodos setters para definir a mensagem da resposta HTTP.
     public int getCode() {
         return code;
     }

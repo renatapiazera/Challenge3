@@ -32,15 +32,15 @@ public class Main {
                 case 1:
                     // Lista todos os produtos registrados
                     System.out.println("--- Registered products ---");
-                    HTTP listMessage = productHandler.listAll(products);
-                    System.out.println(listMessage);
-                    break;
-                case 2:
+                    HTTP listMessage = productHandler.listAll(products); //o método listAll da classe ProductHandler é chamado, passando a lista de produtos (products)
+                    System.out.println(listMessage);        //como argumento. O retorno desse método é uma instância da classe HTTP. O objetivo provável deste método
+                    break;                  //listAll é verificar se a lista de produtos está vazia ou não. Se estiver vazia, uma resposta HTTP indicando que não foi
+                case 2:                         //encontrado nenhum recurso é retornada; caso contrário, a lista de produtos é exibida.
                     // Procura um produto pelo ID
                     System.out.println("--- Search product by ID ---");
                     System.out.print("Enter ID: ");
-                    int productIdToFind = Integer.parseInt(sc.nextLine());
-                    productHandler.findById(productIdToFind, products);
+                    int idFind = Integer.parseInt(sc.nextLine());
+                    productHandler.findById(idFind, products); //método findById da classe productHandler é chamado passando a lista de produtos e o ID procurado.
                     break;
                 case 3:
                     // Adiciona um novo produto
@@ -50,18 +50,18 @@ public class Main {
 
                     // Verifica se o nome tem pelo menos 3 caracteres
                     if (name.length() < 3) {
-                        System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
-                        System.out.println("Error: Enter a valid name.");
+                        System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to.")); //instanciando a classe HTTP direto no print
+                        System.out.println("Error: Enter a valid name."); //mecanismo de tratamento de erros
                         continue; // Volta para o início do loop para mostrar o menu novamente
                     }
                     // Bloco try-catch para lidar com exceções durante a entrada do usuário
-                    try {
+                    try { //tente: manipulando exceções
                         System.out.print("Description (The description must contain at least 10 characters): ");
                         description = sc.nextLine();
 
                         // Verifica se a descrição tem pelo menos 10 caracteres
                         if (description.length() < 10) {
-                            System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
+                            System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to.")); //instanciando a classe HTTP direto no print
                             System.out.println("Error: Enter a valid description with at least 10 characters.");
                             continue; // Volta para o início do loop para mostrar o menu novamente
                         }
@@ -70,20 +70,20 @@ public class Main {
                         System.out.print("Value: ");
                         value = Double.parseDouble(sc.nextLine());
                         if (value <= 0) {
-                            System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
+                            System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to.")); //instanciando a classe HTTP direto no print
                             System.out.println("Error: Enter a valid value.");
                             continue;
                         }
                         // Cria um novo produto e o adiciona à lista de produtos
                         Product p = new Product(maxId, name, description, value);
-                        productHandler.create(p, products);
+                        productHandler.create(p, products); //adicionando produto na lista de produto
                         maxId++;
-                    } catch (ProductHandler.DuplicateName e) {
+                    } catch (ProductHandler.DuplicateName e) { //capture: "e" é frequentemente usado por se tratar de uma exceção e ser fácil de ser lembrada
                         // Captura a exceção se um produto com o mesmo nome já existir
                         System.out.println(new HTTP(403, "Forbidden", e.getMessage()));
                         System.out.println("Error: Product with the same name already exists.");
                         continue;
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException e) { //exceção de formato numérico
                         // Captura a exceção se o valor não for um número
                         System.out.println(new HTTP(403, "Forbidden", "The insertion criteria must be adhered to."));
                         System.out.println("Error: Enter a valid value.");
