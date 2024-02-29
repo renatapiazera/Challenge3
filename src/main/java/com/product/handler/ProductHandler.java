@@ -63,6 +63,7 @@ public class ProductHandler {
         }
         products.add(product);
         System.out.println(new HTTP(200, "OK", "Request successful."));
+        System.out.println(product.toString());
         return product;
     }
     // Exceção personalizada para lidar com nomes de produtos duplicados

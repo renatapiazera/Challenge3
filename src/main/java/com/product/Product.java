@@ -18,7 +18,6 @@ public class Product {
     public int getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
@@ -27,10 +26,16 @@ public class Product {
         this.name = name;
     }
     // Define uma nova descrição para o produto.
+    public String getDescription() {
+        return description;
+    }
     public void setDescription(String description) {
         this.description = description;
     }
     // Define um novo valor monetário para o produto.
+    public double getValue() {
+        return value;
+    }
     public void setValue(double value) {
         this.value = value;
     }
