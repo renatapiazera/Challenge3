@@ -5,10 +5,14 @@ import main.java.com.product.Product;
 import java.util.List;
 
 public class ProductHandler {
-
+    // Construtor padrão da classe ProductHandler
     public ProductHandler() {
     }
-
+    /*
+     * Lista todos os produtos.
+     * @param products Lista de produtos a serem listados.
+     * @return HTTP com o resultado da operação.
+     */
     public HTTP listAll(List<Product> products) {
         if (products.isEmpty()) {
             return new HTTP(404, "Not Found", "The requested resource was not found.");
@@ -20,7 +24,11 @@ public class ProductHandler {
         }
         return null;
     }
-
+    /*
+     * Busca um produto pelo ID.
+     * @param id ID do produto a ser buscado.
+     * @param products Lista de produtos onde será realizada a busca.
+     */
     public void findById(int id, List<Product> products) {
         if (products.isEmpty()) {
             // Lista vazia, retorna erro 404 em formato JSON
@@ -40,11 +48,17 @@ public class ProductHandler {
         // Produto não encontrado, retorna erro 400 em formato JSON
         System.out.println(new HTTP (400, "Invalid request", "Invalid request."));
     }
-
-    public Product create(Product product, List<Product> products) throws DuplicateProductNameException {
+    /*
+     * Cria um novo produto.
+     * @param product Produto a ser criado.
+     * @param products Lista de produtos onde será adicionado o novo produto.
+     * @return Produto criado.
+     * @throws DuplicateName Exceção lançada se já existir um produto com o mesmo nome.
+     */
+    public Product create(Product product, List<Product> products) throws DuplicateName {
         for (Product p : products) {
             if (p.getName().equalsIgnoreCase(product.getName())) {
-                throw new DuplicateProductNameException("The insertion criteria must be adhered to.");
+                throw new DuplicateName("The insertion criteria must be adhered to.");
             }
         }
         products.add(product);
@@ -52,12 +66,18 @@ public class ProductHandler {
         return product;
     }
     // Exceção personalizada para lidar com nomes de produtos duplicados
-    public static class DuplicateProductNameException extends Exception {
-        public DuplicateProductNameException(String message) {
+    public static class DuplicateName extends Exception {
+        public DuplicateName(String message) {
             super(message);
         }
     }
-
+    /*
+     * Atualiza um produto.
+     * @param id ID do produto a ser atualizado.
+     * @param attribute Atributo a ser atualizado (name/description/value).
+     * @param value Novo valor para o atributo.
+     * @param products Lista de produtos onde será realizado a atualização.
+     */
     public void update(int id, String attribute, String value, List<Product> products) {for (Product product : products) {
         if (product.getId() == id) {
             switch (attribute.toLowerCase()) {
@@ -86,7 +106,11 @@ public class ProductHandler {
     }
         System.out.println("Product not found.");
     }
-
+    /*
+     * Deleta um produto.
+     * @param id ID do produto a ser deletado.
+     * @param products Lista de produtos onde será realizado a exclusão.
+     */
     public void delete(int id, List<Product> products) {
         int index = -1;
 

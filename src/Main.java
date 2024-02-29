@@ -20,12 +20,11 @@ public class Main {
         int maxId = 1;
         // Loop principal do programa que exibe um menu e realiza operações com base na escolha do usuário
         while (true) {
-            showMenu(); //EXIBE OPÇÕES DO MENU
+            showMenu(); //EXIBE OPÇÕES DO MENU ATRAVÉS DO MÉTODO AUXILIAR
             int option = Integer.parseInt(sc.nextLine());   //COLETA OPÇÃO DIGITADA PELO USUÁRIO E O
                                                             // Integer.parseInt PEGA TUDO E CONVERTE PRA INTEIRO
 
             switch(option) {
-
                 case 0:
                     sc.close();
                     System.exit(0);
@@ -79,7 +78,7 @@ public class Main {
                         Product p = new Product(maxId, name, description, value);
                         productHandler.create(p, products);
                         maxId++;
-                    } catch (ProductHandler.DuplicateProductNameException e) {
+                    } catch (ProductHandler.DuplicateName e) {
                         // Captura a exceção se um produto com o mesmo nome já existir
                         System.out.println(new HTTP(403, "Forbidden", e.getMessage()));
                         System.out.println("Error: Product with the same name already exists.");
