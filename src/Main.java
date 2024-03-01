@@ -31,15 +31,16 @@ public class Main {
                 case 1:
                     // Lista todos os produtos registrados
                     System.out.println("--- Registered products ---");
-                    HTTP listMessage = productHandler.listAll(products); //o método listAll da classe ProductHandler é chamado, passando a lista de produtos (products)
-                    System.out.println(listMessage);        //como argumento. O retorno desse método é uma instância da classe HTTP. O objetivo provável deste método
-                    break;                  //listAll é verificar se a lista de produtos está vazia ou não. Se estiver vazia, uma resposta HTTP indicando que não foi
-                case 2:                         //encontrado nenhum recurso é retornada; caso contrário, a lista de produtos é exibida.
+                    HTTP listMessage = productHandler.listAll(products);
+                    System.out.println(listMessage);
+                    break;
+                case 2:
                     // Procura um produto pelo ID
                     System.out.println("--- Search product by ID ---");
                     System.out.print("Enter ID: ");
                     int idFind = Integer.parseInt(sc.nextLine());
-                    productHandler.findById(idFind, products); //método findById da classe productHandler é chamado passando a lista de produtos e o ID procurado.
+                    //método findById da classe productHandler é chamado passando a lista de produtos e o ID procurado.
+                    productHandler.findById(idFind, products);
                     break;
                 case 3:
                     // Adiciona um novo produto

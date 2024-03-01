@@ -31,13 +31,11 @@ public class ProductHandler {
      */
     public void findById(int id, List<Product> products) {
         if (products.isEmpty()) {
-            // Lista vazia, retorna erro 404 em formato JSON
             System.out.println(new HTTP(404, "Not Found", "The requested resource was not found."));
             return;
         } else {
             for (Product product : products) {
                 if (product.getId() == id) {
-                    // Produto encontrado, imprime as informações
                     System.out.println(new HTTP(200, "OK", "Request successful."));
                     System.out.println("Product found:");
                     System.out.println(product.toString());
@@ -45,7 +43,6 @@ public class ProductHandler {
                 }
             }
         }
-        // Produto não encontrado, retorna erro 400 em formato JSON
         System.out.println(new HTTP (400, "Invalid request", "Invalid request."));
     }
     /*
@@ -126,8 +123,7 @@ public class ProductHandler {
         throw new IllegalArgumentException("Error: Product not found.");
     }
 
-// Métodos de validação auxiliares
-
+    // Métodos de validação auxiliares
     private void validateName(String name) {
         if (name.trim().isEmpty() || name.length() < 3) {
             throw new IllegalArgumentException("Name must not be empty and must have at least 3 characters.");
