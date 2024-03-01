@@ -84,33 +84,66 @@ public class ProductHandler {
      * @param value Novo valor para o atributo.
      * @param products Lista de produtos onde será realizado a atualização.
      */
-    public void update(int id, String attribute, String value, List<Product> products) {for (Product product : products) {
-        if (product.getId() == id) {
-            switch (attribute.toLowerCase()) {
-                case "name":
-                    product.setName(value);
-                    break;
-                case "description":
-                    product.setDescription(value);
-                    break;
-                case "value":
-                    try {                                                //O bloco try-catch é usado para manipulação de exceções.
-                        double doubleValue = Double.parseDouble(value);  //Ele permite que você lide com possíveis erros durante
-                        product.setValue(doubleValue);                   //a execução de um bloco de código.
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Value is not a valid number.");
-                    }
-                    break;
-                default:
-                    System.out.println("Error: Invalid attribute.");
-                    return;
+    public void update(int id, String attribute, String value, List<Product> products) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                switch (attribute.toLowerCase()) {
+                    case "name":
+                        try {
+                            validateName(value);
+                            product.setName(value);
+                        } catch (IllegalArgumentException e) {
+                            throw new IllegalArgumentException("Error: " + e.getMessage());
+                        }
+                        break;
+                    case "description":
+                        try {
+                            validateDescription(value);
+                            product.setDescription(value);
+                        } catch (IllegalArgumentException e) {
+                            throw new IllegalArgumentException("Error: " + e.getMessage());
+                        }
+                        break;
+                    case "value":
+                        try {
+                            double doubleValue = Double.parseDouble(value);
+                            validateValue(doubleValue);
+                            product.setValue(doubleValue);
+                        } catch (NumberFormatException e) {
+                            throw new IllegalArgumentException("Error: Invalid value format. Please enter a valid number.");
+                        } catch (IllegalArgumentException e) {
+                            throw new IllegalArgumentException("Error: " + e.getMessage());
+                        }
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Error: Invalid attribute.");
+                }
+                System.out.println("Product updated successfully.");
+                System.out.println(product.toString());
+                return;
             }
-            System.out.println("Product updated successfully.");
-            System.out.println(product.toString());
-            return;
+        }
+        throw new IllegalArgumentException("Error: Product not found.");
+    }
+
+// Métodos de validação auxiliares
+
+    private void validateName(String name) {
+        if (name.trim().isEmpty() || name.length() < 3) {
+            throw new IllegalArgumentException("Name must not be empty and must have at least 3 characters.");
         }
     }
-        System.out.println("Product not found.");
+
+    private void validateDescription(String description) {
+        if (description.length() < 10) {
+            throw new IllegalArgumentException("Description must have at least 10 characters.");
+        }
+    }
+
+    private void validateValue(double value) {
+        if (value <= 0) {
+            throw new IllegalArgumentException("Value must be a positive number greater than 0.");
+        }
     }
     /*
      * Deleta um produto.

@@ -101,7 +101,12 @@ public class Main {
                     String attributeToUpdate = sc.nextLine();
                     System.out.print("New value: ");
                     String newValue = sc.nextLine();
-                    productHandler.update(productIdToUpdate, attributeToUpdate, newValue, products);
+                    try {
+                        productHandler.update(productIdToUpdate, attributeToUpdate, newValue, products);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(new HTTP(403, "Forbidden", e.getMessage()));
+                        System.out.println("Error: Update criteria must be adhered to.");
+                    }
                     break;
                 case 5:
                     // Exclui um produto
