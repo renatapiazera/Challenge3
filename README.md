@@ -37,21 +37,3 @@ Observações:
 - A lógica de entrada de dados é cuidadosamente tratada para evitar exceções.
 
 Este sistema proporciona uma interface de linha de comando para gerenciar uma lista de produtos, interagindo com o usuário por meio de um menu simples.
-
-Nota Extra
-Quanto ao programa de bolsas, considero crucial compartilhar minhas percepções sobre o aprendizado adquirido. Destaco a importância do trabalho em grupo e a necessidade de buscar auxílio dos meus supervisores para resolver conflitos.
-Sobre os conceitos aprendidos:
-Try-catch: O bloco try-catch é fundamental para manipulação de exceções. Se ocorrer uma exceção dentro do bloco try, o controle é transferido para o bloco catch, onde o código específico para lidar com a exceção é executado.
-
-Throw: O throw é utilizado para lançar explicitamente uma exceção. Em situações de erro ou circunstâncias excepcionais, podemos usar throw para lançar uma instância de uma classe de exceção.
-
-isEmpty: O método isEmpty é relevante para verificar se uma determinada estrutura de dados, como uma string ou uma coleção, está vazia. É uma prática útil para a manipulação eficiente de dados.
-
-Instanciar método dentro do print: É possível instanciar um método diretamente dentro do método println, como exemplificado em System.out.println(new HTTP(200, "OK", "Request successful."));. Isso facilita a impressão de resultados de métodos no console.
-
-parseInt / parseDouble: As funções parseInt e parseDouble são utilizadas para converter strings em tipos numéricos inteiros e de ponto flutuante, respectivamente. Essas conversões são essenciais para operações matemáticas e manipulação de dados quando se trabalha com entradas fornecidas como texto."
-size: O método size é crucial ao lidar com estruturas de dados, fornecendo a quantidade de elementos presentes. Essencial para arrays, listas ou coleções, o size permite uma gestão eficaz do conteúdo, sendo especialmente útil ao iterar sobre essas estruturas ou ao realizar validações de tamanho.
-Padrão JSON e Protocolo HTTP.
-Espero que essas informações sejam úteis para o aprimoramento contínuo do Programa de Bolsas. Estou muito satisfeita com o resultado do desafio, com o aprendizado e com todo o conhecimento que o Programa de Bolsas da Compass me proporcionou.
-
-
